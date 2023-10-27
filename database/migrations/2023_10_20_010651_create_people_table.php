@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone_number', 20);
             $table->string('zone_type');
             $table->string('address', 60);
-            // $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('id')->references('id')->on('users');
             $table->timestamps();
         });
     }

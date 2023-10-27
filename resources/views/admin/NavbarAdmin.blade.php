@@ -15,7 +15,8 @@
         <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownId">
             <a class="dropdown-item {{ request()->is('admin/establishment_types') ? 'active' : '' }}"
                 href="{{ route('establishment_types.index') }}"><i class="fa-solid fa-shop"></i> Tipo de establecimientos</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-star"></i> Categorias</a>
+            <a class="dropdown-item  {{ request()->is('admin/categories') ? 'active' : '' }}"
+                href="{{ route('categories.index') }}"><i class="fas fa-star"></i> Categorias</a>
             <a class="dropdown-item" href="#"><i class="fa-solid fa-tag"></i> Marcas</a>
             <a>
                 <hr class="dropdown-divider">

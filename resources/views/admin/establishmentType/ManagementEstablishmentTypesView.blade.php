@@ -82,7 +82,7 @@
                         " registros por página",
                     "zeroRecords": "Nada encontrado - disculpa",
                     "info": "Mostrando la página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No records available",
+                    "infoEmpty": "No hay datos disponibles",
                     "infoFiltered": "(filtrado de _MAX_ registros totales)",
                     "search": "Buscar:",
                     "paginate": {
@@ -113,8 +113,8 @@
                         "searchable": false,
                     },
                 ],
-                // "stateSave": true,
-                // "stateDuration": -1,
+                "stateSave": true,
+                "stateDuration": -1,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
