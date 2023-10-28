@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         Establishment::factory(1)->create();
         Category::factory(10)->create();
         Brand::factory(10)->create();
-        Product::factory(50)->create();
+        // Product::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

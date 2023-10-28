@@ -34,9 +34,9 @@
         @foreach ($products as $product)
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 d-flex gap-4 justify-content-center flex-wrap">
-                    <div class="card shadow bg-body-tertiary rounded" style="width: 300px; height: 460px;">
-                        <img src="{{ $product->image }}" class="card-img-top" alt="...">
-
+                    <div class="card shadow bg-body-tertiary rounded" style="width: 300px; height: 500px;">
+                        <img src="{{ asset('storage/products/' . $product->image) }}" class="card-img-top"
+                            alt="{{ $product->name }}" style="width: 300px; height: 300px;">
                         <div class="card-body">
                             <h4 class="card-title">{{ $product->name }}</h4>
                             <h6 class="card-text">Marca: {{ $product->brand->name }}</h6>

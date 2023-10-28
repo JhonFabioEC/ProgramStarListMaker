@@ -81,7 +81,7 @@
                         " registros por página",
                     "zeroRecords": "Nada encontrado - disculpa",
                     "info": "Mostrando la página _PAGE_ de _PAGES_",
-                    "infoEmpty": "No records available",
+                    "infoEmpty": "No hay datos disponibles",
                     "infoFiltered": "(filtrado de _MAX_ registros totales)",
                     "search": "Buscar:",
                     "paginate": {
@@ -92,7 +92,7 @@
                 },
                 "responsive": true,
                 "lengthChange": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "columnDefs": [{
                         "responsivePriority": 1,
                         "targets": 0

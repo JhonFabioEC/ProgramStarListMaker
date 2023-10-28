@@ -14,7 +14,7 @@
             <div class="card-body p-3 w-100">
                 <div class="table-responsive p-1 w-100">
                     <table class="table table-striped table-hover table-bordered table-condensed display nowrap"
-                        id="table_establishment_type" style="width: 100%">
+                        id="table_brand" style="width: 100%">
                         <thead>
                             <tr>
                                 <th></th>
@@ -70,7 +70,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(function() {
-            $("#table_establishment_type").DataTable({
+            $("#table_brand").DataTable({
                 "language": {
                     "lengthMenu": "Mostrar " +
                         `<select class="custom-select custom-select-sm form-control form-control-sm">
@@ -93,7 +93,7 @@
                 },
                 "responsive": true,
                 "lengthChange": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "columnDefs": [{
                         "responsivePriority": 1,
                         "targets": 0

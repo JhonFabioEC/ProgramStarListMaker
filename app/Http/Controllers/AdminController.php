@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function welcomeUser(){
         $categories = Category::where('state', '=', 'true')->get();
         $brands = Brand::where('state', '=', 'true')->get();
-        $products = Product::get();
+        $products = Product::where('state', '=', 'true')->get();
 
         return view('admin.WelcomeUserView', [
             'categories' => $categories,

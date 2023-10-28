@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EstablishmentTypeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,5 @@ Route::resource('admin/establishment_types', EstablishmentTypeController::class)
 Route::resource('admin/categories', CategoryController::class);
 Route::resource('admin/brands', BrandController::class);
 Route::resource('admin/userAccounts', UserController::class);
+
+Route::resource('establishment/products', ProductController::class);
