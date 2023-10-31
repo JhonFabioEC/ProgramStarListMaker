@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Person;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,9 +21,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'image',
+        'username',
+        'email_address',
         'password',
+        'account_status',
+        'role_type_id'
     ];
 
     /**
@@ -47,5 +52,10 @@ class User extends Authenticatable
     public function roleType(): BelongsTo
     {
         return $this->belongsTo(RoleType::class);
+    }
+
+    public function persons(): HasMany
+    {
+        return $this->hasMany(Person::class);
     }
 }

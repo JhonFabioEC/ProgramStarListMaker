@@ -41,11 +41,14 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img class="icono" src="https://picsum.photos/640/480?random=13510" alt="icono"> Perfil</a>
+                                <img class="icono" src="https://picsum.photos/640/480?random=13510" alt="icono">
+                                Perfil</a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear"></i> Ver perfil</a>
-                                <a class="dropdown-item" href="{{ route('home') }}"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+                                <a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear"></i> Ver
+                                    perfil</a>
+                                <a class="dropdown-item" href="{{ route('home') }}"><i
+                                        class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
                             </div>
                         </li>
                     </ul>
@@ -54,7 +57,9 @@
         </nav>
     </header>
 
-    @yield('content')
+    <main>
+        @yield('content')
+    </main>
 
     <footer>
         <div class="mt-3 mb-3 d-flex justify-content-center align-items-center">
@@ -64,6 +69,7 @@
                 <a href="http://wwwudenar.edu.co">Universidad de Nariño</a>
                 Todos los derechos reservados
             </strong>
+        </div>
     </footer>
 
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>

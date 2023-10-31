@@ -32,11 +32,13 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ route('home') }}" aria-current="page"><i class="fa-solid fa-house"></i> Inicio <span
+                            <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ route('home') }}"
+                                aria-current="page"><i class="fa-solid fa-house"></i> Inicio <span
                                     class="visually-hidden">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('login') ? 'active' : '' }}" href="{{ route('login') }}"><i class="fa-solid fa-circle-user"></i> Iniciar sesión</a>
+                            <a class="nav-link {{ request()->is('login') ? 'active' : '' }}"
+                                href="{{ route('login') }}"><i class="fa-solid fa-circle-user"></i> Iniciar sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +46,9 @@
         </nav>
     </header>
 
-    @yield('content')
+    <main>
+        @yield('content')
+    </main>
 
     <footer>
         <div class="mt-3 mb-3 d-flex justify-content-center align-items-center">
@@ -54,6 +58,7 @@
                 <a href="http://wwwudenar.edu.co">Universidad de Nariño</a>
                 Todos los derechos reservados
             </strong>
+        </div>
     </footer>
 
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
