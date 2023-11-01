@@ -28,19 +28,21 @@ use App\Http\Controllers\Auth\SelectUserController;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
 //=================   ADMIN  ===================
-Route::get('/admin', [AdminController::class, 'welcomeAdmin'])->name('welcome_admin');
-Route::get('/establishment', [AdminController::class, 'welcomeEstablishment'])->name('welcome_establishment');
-Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user');
+Route::get('/admin', [AdminController::class, 'welcomeAdmin'])->name('welcome_admin')->middleware('auth');
+Route::get('/establishment', [AdminController::class, 'welcomeEstablishment'])->name('welcome_establishment')->middleware('auth');
+Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user')->middleware('auth');
 
-Route::resource('/admin/establishment_types', EstablishmentTypeController::class);
-Route::resource('/admin/categories', CategoryController::class);
-Route::resource('/admin/brands', BrandController::class);
-Route::resource('/admin/userAccounts', UserController::class);
+Route::resource('/admin/establishment_types', EstablishmentTypeController::class)->middleware('auth');
+Route::resource('/admin/categories', CategoryController::class)->middleware('auth');
+Route::resource('/admin/brands', BrandController::class)->middleware('auth');
+Route::resource('/admin/userAccounts', UserController::class)->middleware('auth');
 
-Route::resource('/establishment/products', ProductController::class);
+Route::resource('/establishment/products', ProductController::class)->middleware('auth');
 
 //=================   LOGIN   ==================
 Route::get('/login', [AuthenticationSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticationSessionController::class, 'store'])->name('start');
+Route::post('/logout', [AuthenticationSessionController::class, 'destroy'])->name('logout');
 
 //===============   REGISTER   =================
 Route::get('/register', [SelectUserController::class, 'create'])->name('selectUser');

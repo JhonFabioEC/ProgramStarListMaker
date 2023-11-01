@@ -42,13 +42,24 @@
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                                 <img class="icono" src="https://picsum.photos/640/480?random=13510" alt="icono">
-                                Perfil</a>
+                                {{ Auth::user()->username }}</a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="dropdownId">
                                 <a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear"></i> Ver
                                     perfil</a>
-                                <a class="dropdown-item" href="{{ route('home') }}"><i
-                                        class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+
+                                <hr class="dropdown-divider"></hr>
+
+                                <div class="dropdown-item">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </li>
                     </ul>

@@ -3,17 +3,22 @@
 @section('content')
     <div class="container d-flex justify-content-center align-items-center mt-3">
         <div class="col-5">
-            <form action="#" method="POST" class="form shadow-lg rounded p-4">
+            <form action="{{ route('start') }}" method="POST" class="form shadow-lg rounded p-4">
+                @csrf
+
                 <div class="col-sm-12 text-center mb-2">
                     <h1>Iniciar Sesión</h1>
                 </div>
 
-                <!-- username -->
+                <!-- email_address -->
                 <div class="form-outline mb-2">
                     <div class="form-group">
-                        <label for="username" class="col-form-label">Usuario</label>
-                        <input type="text" name="username" id="username" placeholder="Ej: pepe@gmail.com" class="form-control">
+                        <label for="email_address" class="col-form-label">Usuario</label>
+                        <input type="text" name="email_address" id="email_address" placeholder="Ej: pepe@gmail.com" class="form-control">
                     </div>
+                    @error('email_address')
+                        <div class="text-small text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <!-- password -->
@@ -22,6 +27,9 @@
                         <label for="password" class="col-form-label">Contraseña</label>
                         <input type="password" name="password" id="password" placeholder="●●●●●●●●" class="form-control">
                     </div>
+                    @error('password')
+                        <div class="text-small text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="d-flex justify-content-between mb-2">
