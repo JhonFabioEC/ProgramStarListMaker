@@ -39,10 +39,7 @@
 
                     <ul class="navbar-nav mt-0 mt-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img class="icono" src="https://picsum.photos/640/480?random=13510" alt="icono">
-                                {{ Auth::user()->username }}</a>
+                            @yield('icono')
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="dropdownId">
                                 <a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear"></i> Ver

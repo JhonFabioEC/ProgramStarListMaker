@@ -50,3 +50,5 @@ Route::get('/register/person', [RegisterPersonController::class, 'create'])->nam
 Route::post('/register/person', [RegisterPersonController::class, 'store'])->name('savePerson');
 
 Route::get('/register/establishment', [RegisterEstablishmentController::class, 'create'])->name('registerEstablishment');
+Route::get('/register/establishment', [RegisterEstablishmentController::class, 'create'])->name('registerEstablishment');
+Route::post('/register/establishment', [RegisterEstablishmentController::class, 'store'])->name('saveEstablishment');

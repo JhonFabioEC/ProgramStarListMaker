@@ -4,6 +4,13 @@
     <a class="navbar-brand" href="{{ route('welcome_establishment') }}">StarListMaker</a>
 @endsection
 
+@section('icono')
+    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <img class="icono" src="{{ asset('storage/users/establishments/' . Auth::user()->image) }}" alt="{{ Auth::user()->usename }}">
+        {{ Auth::user()->username }}</a>
+@endsection
+
 @section('menu')
     <li class="nav-item">
         <a class="nav-link {{ request()->is('establishment') ? 'active' : '' }}" href="{{ route('welcome_establishment') }}"

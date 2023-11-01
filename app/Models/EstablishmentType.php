@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Establishment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EstablishmentType extends Model
 {
@@ -13,4 +15,9 @@ class EstablishmentType extends Model
         'name',
         'state'
     ];
+
+    public function establishments(): HasMany
+    {
+        return $this->hasMany(Establishment::class);
+    }
 }
