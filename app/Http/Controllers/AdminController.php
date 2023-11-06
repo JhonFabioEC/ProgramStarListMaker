@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -27,13 +26,5 @@ class AdminController extends Controller
             'brands' => $brands,
             'products' => $products
         ]);
-    }
-
-    public function managementEstablishmentTypes(){
-        return view('admin.ManagementEstablishmentTypesView');
-    }
-
-    public function logout(){
-        return view('home.LoginView');
     }
 }

@@ -21,6 +21,7 @@ header {
     left: 0;
     width: 100%;
     z-index: 99;
+    background-color: #fff;
 }
 
 /* Estilos para el main (ajusta según tus necesidades) */

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class BrandController extends Controller
 {
@@ -30,18 +31,24 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'state' => 'required'
         ]);
 
-        Brand::create(
-            [
-                'name' => $request->name,
-                'state' => $request->state,
-            ]
-        );
+        try {
+            Brand::create(
+                [
+                    'name' => $request->name,
+                    'state' => $request->state,
+                ]
+            );
 
-        return redirect()->route('brands.index');
+            $message = 'marca creada';
+            return redirect()->route('brands.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo crear la marca';
+            return redirect()->route('brands.index')->with('error', $message);
+        }
     }
 
     /**
@@ -66,18 +73,24 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'state' => 'required'
         ]);
 
-        $brand->update(
-            [
-                'name' => $request->name,
-                'state' => $request->state,
-            ]
-        );
+        try {
+            $brand->update(
+                [
+                    'name' => $request->name,
+                    'state' => $request->state,
+                ]
+            );
 
-        return redirect()->route('brands.index');
+            $message = 'marca actualizada';
+            return redirect()->route('brands.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo actualizar la marca';
+            return redirect()->route('brands.index')->with('error', $message);
+        }
     }
 
     /**
@@ -85,7 +98,13 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $brand->delete();
-        return redirect()->route('brands.index');
+        try {
+            $brand->delete();
+            $message = 'marca eliminada';
+            return redirect()->route('brands.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'la marca no puede ser eliminada';
+            return redirect()->route('brands.index')->with('error', $message);
+        }
     }
 }

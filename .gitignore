@@ -2,8 +2,12 @@
 /node_modules
 /public/build
 /public/hot
-/public/storage
-/storage/*.key
+/public/storage/products/*
+/public/storage/user/persons/*
+/public/storage/user/establishments/*
+!/public/storage/products/default.svg
+!/public/storage/user/persons/default.svg
+!/public/storage/user/establishments/default.svg
 /vendor
 .env
 .env.backup

@@ -45,8 +45,7 @@
                                                     <i class="fas fa-edit nav-icon"></i>
                                                 </a>
 
-                                                <form action="{{ route('categories.destroy', $category) }}"
-                                                    method="POST">
+                                                <form action="{{ route('categories.destroy', $category) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
 
@@ -119,4 +118,24 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Exito!',
+                '{{ session('success') }}',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
+            )
+        </script>
+    @endif
 @endsection

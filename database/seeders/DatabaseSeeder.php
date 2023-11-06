@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
         Department::factory(5)->create();
         Municipality::factory(5)->create();
 
@@ -47,7 +46,7 @@ class DatabaseSeeder extends Seeder
         DocumentType::factory(5)->create();
 
         User::factory()->create([
-            'image' => 'https://picsum.photos/640/480?random=42738',
+            'image' => 'default.svg',
             'username' => 'admin',
             'email_address' => 'admin@prueba.test',
             'password' => '1q2w3e4r',
@@ -57,13 +56,25 @@ class DatabaseSeeder extends Seeder
             'remember_token' => 1
         ]);
 
-        User::factory(2)->create();
-        Person::factory(2)->create();
+        Person::create(
+            [
+                'first_name' => 'Jhon',
+                'last_name' => 'España',
+                'birth_date' => '01-01-1999',
+                'sex' => 'M',
+                'document_number' => '1234567890',
+                'phone_number' => '1234567890',
+                'zone_type' => 'Urbana',
+                'address' => 'Ciudadela',
+                'user_id' => 1,
+                'document_type_id' => 1,
+                'municipality_id' => 1,
+            ]
+        );
+
         EstablishmentType::factory(5)->create();
-        Establishment::factory(1)->create();
         Category::factory(10)->create();
         Brand::factory(10)->create();
-        // Product::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

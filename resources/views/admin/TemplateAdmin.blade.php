@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables/DataTables-1.10.18/css/dataTables.bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables/Responsive-2.4.1/css/responsive.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    @yield('styles')
 </head>
 
 <body>
@@ -63,6 +65,8 @@
                 </div>
             </div>
         </nav>
+
+        @yield('filter')
     </header>
 
     <main>

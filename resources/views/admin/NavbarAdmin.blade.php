@@ -31,8 +31,8 @@
             <a>
                 <hr class="dropdown-divider">
             </a>
-            <a class="dropdown-item {{ request()->is('admin/userAccounts') ? 'active' : '' }}"
-                href="{{ route('userAccounts.index') }}"><i class="fa-solid fa-users"></i> Cuentas de usuarios</a>
+            <a class="dropdown-item {{ request()->is('admin/user_accounts') ? 'active' : '' }}"
+                href="{{ route('user_accounts.index') }}"><i class="fa-solid fa-users"></i> Cuentas de usuarios</a>
         </div>
     </li>
 @endsection

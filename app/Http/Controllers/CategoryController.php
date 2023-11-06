@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class CategoryController extends Controller
 {
@@ -30,18 +31,24 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'state' => 'required'
         ]);
 
-        Category::create(
-            [
-                'name' => $request->name,
-                'state' => $request->state,
-            ]
-        );
+        try {
+            Category::create(
+                [
+                    'name' => $request->name,
+                    'state' => $request->state,
+                ]
+            );
 
-        return redirect()->route('categories.index');
+            $message = 'categoría creada';
+            return redirect()->route('categories.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo crear la categoría';
+            return redirect()->route('categories.index')->with('error', $message);
+        }
     }
 
     /**
@@ -66,18 +73,24 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'state' => 'required'
         ]);
 
-        $category->update(
-            [
-                'name' => $request->name,
-                'state' => $request->state,
-            ]
-        );
+        try {
+            $category->update(
+                [
+                    'name' => $request->name,
+                    'state' => $request->state,
+                ]
+            );
 
-        return redirect()->route('categories.index');
+            $message = 'categoría actualizada';
+            return redirect()->route('categories.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo actualizar la categoría';
+            return redirect()->route('categories.index')->with('error', $message);
+        }
     }
 
     /**
@@ -85,7 +98,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect()->route('categories.index');
+        try {
+            $category->delete();
+            $message = 'categoría eliminada';
+            return redirect()->route('categories.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'la categoría no puede ser eliminada';
+            return redirect()->route('categories.index')->with('error', $message);
+        }
     }
 }

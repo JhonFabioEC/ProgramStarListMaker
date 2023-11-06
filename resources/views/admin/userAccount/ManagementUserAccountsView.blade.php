@@ -29,7 +29,11 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $user->id }}</td>
-                                        <td><img src="{{ $user->image }}" alt="{{ $user->username }}" class="img-fluid img-thumbnail" width="100" height="100"></td>
+                                        <td>
+                                            <img src="{{ asset('storage/users/' . ($user->roleType->name == 'Establecimiento' ? 'establishments/' : 'persons/') . $user->image) }}"
+                                                alt="{{ $user->username }}" class="img-fluid img-thumbnail" width="100"
+                                                height="100">
+                                        </td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email_address }}</td>
                                         <td class="text-center">
@@ -46,13 +50,12 @@
                                         <td>{{ $user->updated_at }}</td>
                                         <td>
                                             <div class="d-flex flex-row justify-content-center align-items-center gap-2">
-                                                <form action="{{ route('establishment_types.edit', $user) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch" {{ $user->account_status == true ? 'checked' : '' }} title="Editar">
-                                                    </div>
-                                                </form>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="btnEdit"
+                                                        role="switch" {{ $user->account_status == true ? 'checked' : '' }}
+                                                        title="Editar"
+                                                        onclick="window.location.href = '/admin/user_accounts/account_status/{{ $user->id }}';">
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -112,10 +115,30 @@
                         "searchable": false,
                     },
                 ],
-                // "stateSave": true,
-                // "stateDuration": -1,
+                "stateSave": true,
+                "stateDuration": -1,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Exito!',
+                '{{ session('success') }}',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
+            )
+        </script>
+    @endif
 @endsection

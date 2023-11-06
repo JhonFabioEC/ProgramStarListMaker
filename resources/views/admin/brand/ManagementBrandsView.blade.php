@@ -40,13 +40,12 @@
                                         <td>{{ $brand->updated_at }}</td>
                                         <td>
                                             <div class="d-flex flex-row justify-content-center align-items-center gap-2">
-                                                <a href="{{ route('brands.edit', $brand) }}"
-                                                    class="btn btn-warning text-white" title="Editar">
+                                                <a href="{{ route('brands.edit', $brand) }}" class="btn btn-warning text-white"
+                                                    title="Editar">
                                                     <i class="fas fa-edit nav-icon"></i>
                                                 </a>
 
-                                                <form action="{{ route('brands.destroy', $brand) }}"
-                                                    method="POST">
+                                                <form action="{{ route('brands.destroy', $brand) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
 
@@ -119,4 +118,24 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Exito!',
+                '{{ session('success') }}',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
+            )
+        </script>
+    @endif
 @endsection

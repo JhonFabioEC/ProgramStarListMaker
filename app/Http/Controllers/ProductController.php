@@ -6,6 +6,9 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Establishment;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
 {
@@ -14,7 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('establishment_id', '=', '1')->get();
+        $establishment = Establishment::where('user_id', '=', Auth::user()->id)->get();
+        $products = Product::where('establishment_id', '=', $establishment[0]->id)->get();
         return view('admin.product.ManagementProductsView', ['products' => $products]);
     }
 
@@ -38,7 +42,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'price'  => 'required|integer|between:100,9999999',
             'stock'  => 'required|integer|between:0,1000',
             'barcode'  => 'required|integer',
@@ -50,27 +54,34 @@ class ProductController extends Controller
             'brand_id'  => 'required'
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('storage/products'), $imageName);
+        try {
+            $imageName = time() . '.' . $request->image->extension();
+            $establishment = Establishment::where('user_id', '=', Auth::user()->id)->get();
 
-        Product::create(
-            [
-                'name' => $request->name,
-                'price' => $request->price,
-                'stock' => $request->stock,
-                'barcode' => $request->barcode,
-                'section' => $request->section,
-                'image' => $imageName,
-                'description' => $request->description,
-                'state' => $request->state,
-                'category_id' => $request->category_id,
-                'brand_id' => $request->brand_id,
-                'establishment_id' => 1
-                // 'establishment_id' => $request->establishment_id
-            ]
-        );
+            Product::create(
+                [
+                    'name' => $request->name,
+                    'price' => $request->price,
+                    'stock' => $request->stock,
+                    'barcode' => $request->barcode,
+                    'section' => $request->section,
+                    'image' => $imageName,
+                    'description' => $request->description,
+                    'state' => $request->state,
+                    'category_id' => $request->category_id,
+                    'brand_id' => $request->brand_id,
+                    'establishment_id' => $establishment[0]->id
+                ]
+            );
 
-        return redirect()->route('products.index');
+            $request->image->move(public_path('storage/products'), $imageName);
+
+            $message = 'producto creado';
+            return redirect()->route('products.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo crear el producto';
+            return redirect()->route('products.index')->with('error', $message);
+        }
     }
 
     /**
@@ -101,7 +112,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'price'  => 'required|integer|between:100,9999999',
             'stock'  => 'required|integer|between:0,1000',
             'barcode'  => 'required|integer',
@@ -113,27 +124,34 @@ class ProductController extends Controller
             'brand_id'  => 'required'
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('storage/products'), $imageName);
+        try {
+            $imageName = time() . '.' . $request->image->extension();
+            $establishment = Establishment::where('user_id', '=', Auth::user()->id)->get();
 
-        $product->update(
-            [
-                'name' => $request->name,
-                'price' => $request->price,
-                'stock' => $request->stock,
-                'barcode' => $request->barcode,
-                'section' => $request->section,
-                'image' => $imageName,
-                'description' => $request->description,
-                'state' => $request->state,
-                'category_id' => $request->category_id,
-                'brand_id' => $request->brand_id,
-                'establishment_id' => 1
-                // 'establishment_id' => $request->establishment_id
-            ]
-        );
+            $product->update(
+                [
+                    'name' => $request->name,
+                    'price' => $request->price,
+                    'stock' => $request->stock,
+                    'barcode' => $request->barcode,
+                    'section' => $request->section,
+                    'image' => $imageName,
+                    'description' => $request->description,
+                    'state' => $request->state,
+                    'category_id' => $request->category_id,
+                    'brand_id' => $request->brand_id,
+                    'establishment_id' => $establishment[0]->id
+                ]
+            );
 
-        return redirect()->route('products.index');
+            $request->image->move(public_path('storage/products'), $imageName);
+
+            $message = 'producto actualizado';
+            return redirect()->route('products.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo actualizar el producto';
+            return redirect()->route('products.index')->with('error', $message);
+        }
     }
 
     /**
@@ -141,7 +159,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('products.index');
+        try {
+            $product->delete();
+            $message = 'producto eliminado';
+            return redirect()->route('products.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'el producto no puede ser eliminado';
+            return redirect()->route('products.index')->with('error', $message);
+        }
     }
 }

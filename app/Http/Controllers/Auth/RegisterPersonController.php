@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Person;
 use App\Models\Department;
 use App\Models\DocumentType;
 use App\Models\Municipality;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Person;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterPersonController extends Controller
 {
@@ -45,35 +46,41 @@ class RegisterPersonController extends Controller
             'municipality_id' => 'required'
         ]);
 
-        $user = User::create(
-            [
-                'image' => 'https://picsum.photos/640/480?random=38147',
-                'username' => $request->username,
-                'email_address' => $request->email_address,
-                'password' => bcrypt($request->password),
-                'account_status' => true,
-                'role_type_id' => 3
-            ]
-        );
+        try {
+            $user = User::create(
+                [
+                    'image' => 'default.svg',
+                    'username' => $request->username,
+                    'email_address' => $request->email_address,
+                    'password' => bcrypt($request->password),
+                    'account_status' => true,
+                    'role_type_id' => 3
+                ]
+            );
 
-        $user_id = $user->id;
+            $user_id = $user->id;
 
-        Person::create(
-            [
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'birth_date' => $request->birth_date,
-                'sex' => $request->sex,
-                'document_number' => $request->document_number,
-                'phone_number' => $request->phone_number,
-                'zone_type' => $request->zone_type,
-                'address' => $request->address,
-                'user_id' => $user_id,
-                'document_type_id' => $request->document_type_id,
-                'municipality_id' => $request->municipality_id,
-            ]
-        );
+            Person::create(
+                [
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'birth_date' => $request->birth_date,
+                    'sex' => $request->sex,
+                    'document_number' => $request->document_number,
+                    'phone_number' => $request->phone_number,
+                    'zone_type' => $request->zone_type,
+                    'address' => $request->address,
+                    'user_id' => $user_id,
+                    'document_type_id' => $request->document_type_id,
+                    'municipality_id' => $request->municipality_id,
+                ]
+            );
 
-        return redirect()->route('login');
+            $message = 'usuario creado';
+            return redirect()->route('login')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no se pudo crear el usuario';
+            return redirect()->route('registerPerson')->with('error', $message);
+        }
     }
 }

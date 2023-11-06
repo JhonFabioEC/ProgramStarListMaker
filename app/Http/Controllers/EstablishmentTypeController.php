@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EstablishmentType;
 use Illuminate\Http\Request;
+use App\Models\EstablishmentType;
+use Illuminate\Database\QueryException;
 
 class EstablishmentTypeController extends Controller
 {
@@ -30,18 +31,24 @@ class EstablishmentTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'state' => 'required'
         ]);
 
-        EstablishmentType::create(
-            [
-                'name' => $request->name,
-                'state' => $request->state,
-            ]
-        );
+        try {
+            EstablishmentType::create(
+                [
+                    'name' => $request->name,
+                    'state' => $request->state,
+                ]
+            );
 
-        return redirect()->route('establishment_types.index');
+            $message = 'establecimiento creado';
+            return redirect()->route('establishment_types.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo crear el establecimiento';
+            return redirect()->route('establishment_types.index')->with('error', $message);
+        }
     }
 
     /**
@@ -66,18 +73,24 @@ class EstablishmentTypeController extends Controller
     public function update(Request $request, EstablishmentType $establishmentType)
     {
         $request->validate([
-            'name' => 'required|regex:/^([A-Za-zÑñ\s]*)$/|between:3,60',
+            'name' => 'required|between:3,60',
             'state' => 'required'
         ]);
 
-        $establishmentType->update(
-            [
-                'name' => $request->name,
-                'state' => $request->state,
-            ]
-        );
+        try {
+            $establishmentType->update(
+                [
+                    'name' => $request->name,
+                    'state' => $request->state,
+                ]
+            );
 
-        return redirect()->route('establishment_types.index');
+            $message = 'establecimiento actualizado';
+            return redirect()->route('establishment_types.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo actualizar el establecimiento';
+            return redirect()->route('establishment_types.index')->with('error', $message);
+        }
     }
 
     /**
@@ -85,7 +98,13 @@ class EstablishmentTypeController extends Controller
      */
     public function destroy(EstablishmentType $establishmentType)
     {
-        $establishmentType->delete();
-        return redirect()->route('establishment_types.index');
+        try {
+            $establishmentType->delete();
+            $message = 'establecimiento eliminado';
+            return redirect()->route('establishment_types.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'el establecimiento no puede ser eliminado';
+            return redirect()->route('establishment_types.index')->with('error', $message);
+        }
     }
 }

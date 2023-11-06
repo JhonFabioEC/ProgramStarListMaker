@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -62,5 +63,24 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function setAccountStatus($id)
+    {
+        $user = User::find($id);
+
+        try {
+            $user->update(
+                [
+                    'account_status' => !$user->account_status
+                ]
+            );
+
+            $message = 'cuenta de usuario actualizada';
+            return redirect()->route('user_accounts.index')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no pudo actualizar la cuenta de usuario';
+            return redirect()->route('user_accounts.index')->with('error', $message);
+        }
     }
 }

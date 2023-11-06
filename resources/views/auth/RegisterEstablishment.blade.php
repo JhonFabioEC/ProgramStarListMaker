@@ -1,4 +1,4 @@
-@extends('auth.TemplateAuth')
+@extends('auth.NavbarLogin')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center mt-3">
@@ -200,4 +200,26 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Exito!',
+                '{{ session('success') }}',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
+            )
+        </script>
+    @endif
 @endsection

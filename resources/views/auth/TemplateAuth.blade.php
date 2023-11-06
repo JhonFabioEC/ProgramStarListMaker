@@ -19,6 +19,15 @@
         </div>
     </div>
 
+    <header>
+        <!-- Nav tabs -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary">
+            <div class="container-fluid">
+                @yield('logo')
+            </div>
+        </nav>
+    </header>
+
     <main>
         @yield('content')
     </main>

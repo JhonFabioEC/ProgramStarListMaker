@@ -31,11 +31,13 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/admin', [AdminController::class, 'welcomeAdmin'])->name('welcome_admin')->middleware('auth');
 Route::get('/establishment', [AdminController::class, 'welcomeEstablishment'])->name('welcome_establishment')->middleware('auth');
 Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user')->middleware('auth');
+// Route::get('/admin/user/{id}/{quantity}', [AdminController::class, 'setState'])->name('set_state')->middleware('auth');
 
 Route::resource('/admin/establishment_types', EstablishmentTypeController::class)->middleware('auth');
 Route::resource('/admin/categories', CategoryController::class)->middleware('auth');
 Route::resource('/admin/brands', BrandController::class)->middleware('auth');
-Route::resource('/admin/userAccounts', UserController::class)->middleware('auth');
+Route::resource('/admin/user_accounts', UserController::class)->middleware('auth');
+Route::get('/admin/user_accounts/account_status/{id}', [UserController::class, 'setAccountStatus'])->name('set_account_status')->middleware('auth');
 
 Route::resource('/establishment/products', ProductController::class)->middleware('auth');
 

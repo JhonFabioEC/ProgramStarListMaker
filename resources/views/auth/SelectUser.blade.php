@@ -1,4 +1,4 @@
-@extends('auth.TemplateAuth')
+@extends('auth.NavbarLogin')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center mt-3">

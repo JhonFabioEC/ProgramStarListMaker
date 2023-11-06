@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Establishment;
 use App\Models\EstablishmentType;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use Illuminate\Validation\Rules\Password;
 
 class RegisterEstablishmentController extends Controller
@@ -42,31 +43,37 @@ class RegisterEstablishmentController extends Controller
             'municipality_id' => 'required'
         ]);
 
-        $user = User::create(
-            [
-                'image' => 'https://picsum.photos/640/480?random=38147',
-                'username' => $request->username,
-                'email_address' => $request->email_address,
-                'password' => bcrypt($request->password),
-                'account_status' => true,
-                'role_type_id' => 2
-            ]
-        );
+        try {
+            $user = User::create(
+                [
+                    'image' => 'default.svg',
+                    'username' => $request->username,
+                    'email_address' => $request->email_address,
+                    'password' => bcrypt($request->password),
+                    'account_status' => true,
+                    'role_type_id' => 2
+                ]
+            );
 
-        $user_id = $user->id;
+            $user_id = $user->id;
 
-        Establishment::create(
-            [
-                'name' => $request->name,
-                'phone_number' => $request->phone_number,
-                'zone_type' => $request->zone_type,
-                'address' => $request->address,
-                'user_id' => $user_id,
-                'establishment_type_id' => $request->establishment_type_id,
-                'municipality_id' => $request->municipality_id,
-            ]
-        );
+            Establishment::create(
+                [
+                    'name' => $request->name,
+                    'phone_number' => $request->phone_number,
+                    'zone_type' => $request->zone_type,
+                    'address' => $request->address,
+                    'user_id' => $user_id,
+                    'establishment_type_id' => $request->establishment_type_id,
+                    'municipality_id' => $request->municipality_id,
+                ]
+            );
 
-        return redirect()->route('login');
+            $message = 'establecimiento creado';
+            return redirect()->route('login')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'no se pudo crear el establecimiento';
+            return redirect()->route('registerEstablishment')->with('error', $message);
+        }
     }
 }

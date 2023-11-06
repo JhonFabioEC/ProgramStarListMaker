@@ -1,7 +1,15 @@
 @extends('admin.NavbarUser')
 
-@section('content')
-    <div class="container mt-3">
+@section('styles')
+    <style>
+        main {
+            margin-top: 130px;
+        }
+    </style>
+@endsection
+
+@section('filter')
+    <div class="container mb-3 mt-3">
         <div class="row justify-content-center align-items-center g-3">
             <div class="col-8">
                 <form class="d-flex my-2 my-lg-0">
@@ -29,7 +37,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('content')
     <div class="d-flex flex-wrap justify-content-center mt-3 gap-3">
         @foreach ($products as $product)
             <div class="row justify-content-center align-items-center">

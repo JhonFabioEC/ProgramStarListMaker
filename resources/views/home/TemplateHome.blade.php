@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/sweetAlert2/dist/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    @yield('styles')
 </head>
 
 <body>
@@ -44,6 +46,8 @@
                 </div>
             </div>
         </nav>
+
+        @yield('filter')
     </header>
 
     <main>

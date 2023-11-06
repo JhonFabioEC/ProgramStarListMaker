@@ -38,7 +38,9 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>{{ $product->id }}</td>
-                                        <td><img src="{{ asset('storage/products/'.$product->image) }}" alt="{{ $product->name }}" class="img-fluid img-thumbnail" width="150" height="150"></td>
+                                        <td><img src="{{ asset('storage/products/' . $product->image) }}"
+                                                alt="{{ $product->name }}" class="img-fluid img-thumbnail" width="150"
+                                                height="150"></td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->price }}</td>
                                         <td>{{ $product->stock }}</td>
@@ -61,8 +63,7 @@
                                                     <i class="fas fa-edit nav-icon"></i>
                                                 </a>
 
-                                                <form action="{{ route('products.destroy', $product) }}"
-                                                    method="POST">
+                                                <form action="{{ route('products.destroy', $product) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
 
@@ -135,4 +136,24 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Exito!',
+                '{{ session('success') }}',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
+            )
+        </script>
+    @endif
 @endsection
