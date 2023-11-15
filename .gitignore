@@ -3,11 +3,11 @@
 /public/build
 /public/hot
 /public/storage/products/*
-/public/storage/user/persons/*
-/public/storage/user/establishments/*
+/public/storage/users/persons/*
+/public/storage/users/establishments/*
 !/public/storage/products/default.svg
-!/public/storage/user/persons/default.svg
-!/public/storage/user/establishments/default.svg
+!/public/storage/users/persons/default.svg
+!/public/storage/users/establishments/default.svg
 /vendor
 .env
 .env.backup

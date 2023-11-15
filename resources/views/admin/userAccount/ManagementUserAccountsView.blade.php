@@ -54,7 +54,7 @@
                                                     <input class="form-check-input" type="checkbox" id="btnEdit"
                                                         role="switch" {{ $user->account_status == true ? 'checked' : '' }}
                                                         title="Editar"
-                                                        onclick="window.location.href = '/admin/user_accounts/account_status/{{ $user->id }}';">
+                                                        onclick="window.location.href = '/admin/management/user_accounts/account_status/{{ $user->id }}';">
                                                 </div>
                                             </div>
                                         </td>

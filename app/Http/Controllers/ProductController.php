@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Establishment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\QueryException;
 
 class ProductController extends Controller
@@ -117,7 +118,7 @@ class ProductController extends Controller
             'stock'  => 'required|integer|between:0,1000',
             'barcode'  => 'required|integer',
             'section'  => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2040',
+            'image' => 'image|mimes:jpg,png,jpeg|max:2040',
             'description'  => 'required',
             'state'  => 'required',
             'category_id'  => 'required',
@@ -125,8 +126,19 @@ class ProductController extends Controller
         ]);
 
         try {
-            $imageName = time() . '.' . $request->image->extension();
             $establishment = Establishment::where('user_id', '=', Auth::user()->id)->get();
+
+            if ($request->hasFile('image')) {
+                $imageName = time() . '.' . $request->image->extension();
+
+                if ($product->image && $product->image != 'default.svg' && File::exists(public_path('storage/products/' . $product->image))) {
+                    File::delete(public_path('storage/products/' . $product->image));
+                }
+
+                $request->image->move(public_path('storage/products'), $imageName);
+
+                $product->update(['image' => $imageName]);
+            }
 
             $product->update(
                 [
@@ -135,7 +147,6 @@ class ProductController extends Controller
                     'stock' => $request->stock,
                     'barcode' => $request->barcode,
                     'section' => $request->section,
-                    'image' => $imageName,
                     'description' => $request->description,
                     'state' => $request->state,
                     'category_id' => $request->category_id,
@@ -143,8 +154,6 @@ class ProductController extends Controller
                     'establishment_id' => $establishment[0]->id
                 ]
             );
-
-            $request->image->move(public_path('storage/products'), $imageName);
 
             $message = 'producto actualizado';
             return redirect()->route('products.index')->with('success', $message);
@@ -160,6 +169,10 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+            if ($product->image && $product->image != 'default.svg' && File::exists(public_path('storage/products/' . $product->image))) {
+                File::delete(public_path('storage/products/' . $product->image));
+            }
+
             $product->delete();
             $message = 'producto eliminado';
             return redirect()->route('products.index')->with('success', $message);

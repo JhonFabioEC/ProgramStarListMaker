@@ -5,9 +5,11 @@
 @endsection
 
 @section('icono')
-    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
+    <a class="nav-link {{ request()->is('user/profile*') ? 'active' : '' }} dropdown-toggle"
+        href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
-        <img class="icono" src="{{ asset('storage/users/persons/' . Auth::user()->image) }}" alt="{{ Auth::user()->username }}">
+        <img class="icono" src="{{ asset('storage/users/persons/' . Auth::user()->image) }}"
+            alt="{{ Auth::user()->username }}">
         {{ Auth::user()->username }}</a>
 @endsection
 
@@ -19,4 +21,9 @@
     <li class="nav-item">
         <a class="nav-link" href="#" aria-current="page"><i class="fas fa-shopping-cart"></i> Mi lista</a>
     </li>
+@endsection
+
+@section('profile')
+    <a class="dropdown-item {{ request()->is('user/profile*') ? 'active' : '' }}"
+        href="{{ route('user_profile') }}"><i class="fa-solid fa-user-gear"></i> Ver perfil</a>
 @endsection

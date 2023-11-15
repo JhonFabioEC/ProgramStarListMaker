@@ -44,8 +44,7 @@
                             @yield('icono')
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                                 aria-labelledby="dropdownId">
-                                <a class="dropdown-item" href="#"><i class="fa-solid fa-user-gear"></i> Ver
-                                    perfil</a>
+                                @yield('profile')
 
                                 <hr class="dropdown-divider"></hr>
 

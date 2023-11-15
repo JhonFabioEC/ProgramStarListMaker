@@ -76,13 +76,13 @@
                 <div class="form-outline mb-3">
                     <label class="col-form-label w-100">Tipo de documento</label>
                     <select id="document_type_id" name="document_type_id" class="form-control form-select w-100">
-                        <option value="">Seleccionar tipo de documento</option>
+                        <option value="">Escoger tipo de documento...</option>
 
                         @isset($document_types)
                             @foreach ($document_types as $document_type)
                                 <option value="{{ $document_type->id }}"
                                     @isset($person)
-                                    @selected(old('document_type_id', $person) == $person->document_type->id)
+                                    @selected(old('document_type_id', $person) == $document_type->id)
                                 @endisset>
                                     {{ $document_type->name }} </option>
                             @endforeach
@@ -111,13 +111,13 @@
                 <div class="form-outline mb-3">
                     <label class="col-form-label w-100">Departamento</label>
                     <select id="department_id" name="department_id" class="form-control form-select w-100">
-                        <option value="">Seleccionar departamento</option>
+                        <option value="">Escoger departamento...</option>
 
                         @isset($departments)
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}"
                                     @isset($person)
-                                    @selected(old('department_id', $person) == $person->department->id)
+                                    @selected(old('department_id', $person->municipality) == $department->id)
                                 @endisset>
                                     {{ $department->name }} </option>
                             @endforeach
@@ -132,14 +132,14 @@
                 {{-- municipality_id --}}
                 <div class="form-outline mb-3">
                     <label class="col-form-label w-100">Municipio</label>
-                    <select id="municipality_id" name="municipality_id" class="form-control form-select w-100" disabled'>
-                        <option value="none">Seleccionar municipio</option>
+                    <select id="municipality_id" name="municipality_id" class="form-control form-select w-100">
+                        <option value="none">Escoger municipio...</option>
 
                         @isset($municipalities)
                             @foreach ($municipalities as $municipality)
                                 <option value="{{ $municipality->id }}"
                                     @isset($person)
-                                    @selected(old('municipality_id', $person) == $person->municipality->id)
+                                    @selected(old('municipality_id', $person) == $municipality->id)
                                 @endisset>
                                     {{ $municipality->name }} </option>
                             @endforeach
@@ -155,17 +155,17 @@
                 <div class="form-outline mb-3">
                     <label class="col-form-label w-100">Tipo de zona</label>
                     <select id="zone_type" name="zone_type" class="form-control form-select w-100">
-                        <option value="">Seleccionar tipo de zona</option>
+                        <option value="">Escoger tipo de zona...</option>
 
                         <option value="Urbana"
                             @isset($person)
-                                {{ $person->state == 'Urbana' ? 'selected' : '' }}
+                                {{ old('zone_type', $person) == 'Urbana' ? 'selected' : '' }}
                             @endisset>
                             Urbana</option>
 
                         <option value="Rural"
                             @isset($person)
-                                {{ $person->state == 'Rural' ? 'selected' : '' }}
+                                {{ old('zone_type', $person) == 'Rural' ? 'selected' : '' }}
                             @endisset>
                             Rural</option>
                     </select>

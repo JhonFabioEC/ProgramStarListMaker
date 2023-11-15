@@ -62,7 +62,7 @@
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}"
                     @isset($product)
-                        @selected(old('category_id', $product) == $product->category->id)
+                        @selected(old('category_id', $product) == $category->id)
                     @endisset>
                     {{ $category->name }} </option>
             @endforeach
@@ -84,7 +84,7 @@
             @foreach ($brands as $brand)
                 <option value="{{ $brand->id }}"
                     @isset($product)
-                        @selected(old('brand_id', $product) == $product->brand->id)
+                        @selected(old('brand_id', $product) == $brand->id)
                     @endisset>
                     {{ $brand->name }} </option>
             @endforeach
@@ -145,7 +145,7 @@
     @enderror
 </div>
 
-<!-- image -->
+{{-- image --}}
 <div class="col-lg-12 mb-2">
     <label for="customFile" class="col-form-label">Imagen</label>
     <div class="custom-file">
