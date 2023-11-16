@@ -12,27 +12,41 @@
     <div class="container mb-3 mt-3">
         <div class="row justify-content-center align-items-center g-3">
             <div class="col-8">
-                <form class="d-flex my-2 my-lg-0">
-                    <input class="form-control me-sm-2" type="text" placeholder="Buscar">
+                <form class="d-flex my-2 my-lg-0" action="{{ route('searchArticlesHome') }}" method="POST">
+                    @csrf
+                    <input class="form-control me-sm-2" type="text" name="search" placeholder="Buscar">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
 
             <div class="col-2">
-                <select class="form-select form-select" name="categories" id="categories">
-                    <option value="0" selected>Categorias</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
+                <select class="form-select form-select" name="category_id" id="category_id">
+                    <option value="all" selected>Categorias</option>
+
+                    @isset($categories)
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"
+                                @isset($category_id)
+                                    @selected($category_id == $category->id)
+                                @endisset
+                            >{{ $category->name }}</option>
+                        @endforeach
+                    @endisset
                 </select>
             </div>
 
             <div class="col-2">
-                <select class="form-select form-select" name="brands" id="brands">
-                    <option selected>Marcas</option>
-                    @foreach ($brands as $brand)
-                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                    @endforeach
+                <select class="form-select form-select" name="brand_id" id="brand_id">
+                    <option value="all" selected>Marcas</option>
+                    @isset($brands)
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}"
+                                @isset($brand_id)
+                                    @selected($brand_id == $brand->id)
+                                @endisset
+                            >{{ $brand->name }}</option>
+                        @endforeach
+                    @endisset
                 </select>
             </div>
         </div>
@@ -52,11 +66,28 @@
                             <h6 class="card-text">Marca: {{ $product->brand->name }}</h6>
                             <span class="card-text d-block">Precio: $ {{ $product->price }}</span>
                             <span class="card-text d-block">Cantidad: {{ $product->stock }}</span>
-                            <span class="card-text d-block">De: <strong>{{ $product->establishment->name }}</strong></span>
+                            <span class="card-text d-block">De:
+                                <strong>{{ $product->establishment->name }}</strong></span>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        var category = document.getElementById('category_id');
+        category.addEventListener('change', function() {
+            var selectOption = this.options[category.selectedIndex];
+            window.location.href = "/category/" + selectOption.value;
+        });
+
+        var brand = document.getElementById('brand_id');
+        brand.addEventListener('change', function() {
+            var selectOption = this.options[brand.selectedIndex];
+            window.location.href = "/brand/" + selectOption.value;
+        });
+    </script>
 @endsection

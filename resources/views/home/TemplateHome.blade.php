@@ -25,7 +25,7 @@
         <!-- Nav tabs -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">StarListMaker</a>
+                <a class="navbar-brand" href="{{ route('home') }}">StarListMaker</a>
                 <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -70,6 +70,8 @@
     <script src="{{ asset('plugins/fontawesome/js/all.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetAlert2/dist/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/spinner.js') }}"></script>
+
+    @yield('scripts')
 </body>
 
 </html>

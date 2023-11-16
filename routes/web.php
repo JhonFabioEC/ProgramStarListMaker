@@ -29,6 +29,9 @@ use App\Http\Controllers\Auth\RegisterEstablishmentController;
 
 //=================   HOME   ===================
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/category/{id}', [HomeController::class, 'getProductsByCategory'])->name('productsByCategoryHome');
+Route::get('/brand/{id}', [HomeController::class, 'getProductsByBrand'])->name('productsByBrandHome');
+Route::post('/', [HomeController::class, 'getProductsByName'])->name('searchArticlesHome');
 
 //=================   LOGIN   ==================
 Route::get('/login', [AuthenticationSessionController::class, 'create'])->name('login');
@@ -57,11 +60,6 @@ Route::get('/admin/profile/edit', [PersonProfileAdminController::class, 'edit'])
 Route::put('/admin/profile/edit', [PersonProfileAdminController::class, 'update'])->name('updatePersonAdmin')->middleware('auth');
 Route::get('/admin/profile/delete/{id}', [PersonProfileAdminController::class, 'destroy'])->name('destroyPersonAdmin')->middleware('auth');
 
-Route::get('/user/profile', [PersonProfileUserController::class, 'index'])->name('user_profile')->middleware('auth');
-Route::get('/user/profile/edit', [PersonProfileUserController::class, 'edit'])->name('user_edit_profile')->middleware('auth');
-Route::put('/user/profile/edit', [PersonProfileUserController::class, 'update'])->name('updatePersonUser')->middleware('auth');
-Route::get('/user/profile/delete/{id}', [PersonProfileUserController::class, 'destroy'])->name('destroyPersonAdmin')->middleware('auth');
-
 Route::get('/establishment', [AdminController::class, 'welcomeEstablishment'])->name('welcome_establishment')->middleware('auth');
 
 Route::resource('/establishment/management/products', ProductController::class)->middleware('auth');
@@ -72,3 +70,8 @@ Route::put('/establishment/profile/edit', [EstablishmentProfileController::class
 Route::get('/establishment/profile/delete/{id}', [EstablishmentProfileController::class, 'destroy'])->name('destroyEstablishment')->middleware('auth');
 
 Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user')->middleware('auth');
+
+Route::get('/user/profile', [PersonProfileUserController::class, 'index'])->name('user_profile')->middleware('auth');
+Route::get('/user/profile/edit', [PersonProfileUserController::class, 'edit'])->name('user_edit_profile')->middleware('auth');
+Route::put('/user/profile/edit', [PersonProfileUserController::class, 'update'])->name('updatePersonUser')->middleware('auth');
+Route::get('/user/profile/delete/{id}', [PersonProfileUserController::class, 'destroy'])->name('destroyPersonAdmin')->middleware('auth');
