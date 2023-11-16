@@ -70,6 +70,9 @@ Route::put('/establishment/profile/edit', [EstablishmentProfileController::class
 Route::get('/establishment/profile/delete/{id}', [EstablishmentProfileController::class, 'destroy'])->name('destroyEstablishment')->middleware('auth');
 
 Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user')->middleware('auth');
+Route::get('/user/category/{id}', [AdminController::class, 'getProductsByCategory'])->name('productsByCategoryAdmin');
+Route::get('/user/brand/{id}', [AdminController::class, 'getProductsByBrand'])->name('productsByBrandAdmin');
+Route::post('/user', [AdminController::class, 'getProductsByName'])->name('searchArticlesAdmin');
 
 Route::get('/user/profile', [PersonProfileUserController::class, 'index'])->name('user_profile')->middleware('auth');
 Route::get('/user/profile/edit', [PersonProfileUserController::class, 'edit'])->name('user_edit_profile')->middleware('auth');
