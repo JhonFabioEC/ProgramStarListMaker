@@ -39,7 +39,7 @@
                 {{-- birth_date --}}
                 <div class="form-outline mb-3">
                     <div class="form-group">
-                        <label class="col-form-label w-100">Fecha de Nacimiento</label>
+                        <label class="col-form-label w-100">Fecha de nacimiento</label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control w-100"
                             min="{{ now()->subYears(100)->toDateString('Y-m-d') }}" max="{{ now()->toDateString('Y-m-d') }}"
                             value="{{ old('birth_date', $person) }}" />
@@ -191,7 +191,7 @@
                 {{-- phone_number --}}
                 <div class="form-outline mb-3">
                     <div class="form-group">
-                        <label class="col-form-label w-100">Número de Teléfono <strong>(10)</strong></label>
+                        <label class="col-form-label w-100">Número de teléfono <strong>(10)</strong></label>
                         <input type="text" name="phone_number" id="phone_number" class="form-control w-100"
                             value="{{ old('phone_number', $person) }}" />
                     </div>
@@ -204,7 +204,7 @@
                 {{-- email_address --}}
                 <div class="form-outline mb-3">
                     <div class="form-group">
-                        <label class="col-form-label w-100">Correo Electrónico</label>
+                        <label class="col-form-label w-100">Correo electrónico</label>
                         <input type="text" name="email_address" id="email_address" class="form-control w-100"
                             value="{{ old('email_address', $user) }}" />
                     </div>
@@ -217,7 +217,7 @@
                 {{-- username --}}
                 <div class="form-outline mb-3">
                     <div class="form-group">
-                        <label class="col-form-label w-100">Nombre de Usuario</label>
+                        <label class="col-form-label w-100">Nombre de usuario</label>
                         <input type="text" name="username" id="username" class="form-control w-100"
                             value="{{ old('username', $user) }}" />
                     </div>
@@ -242,7 +242,7 @@
                 {{-- password_confirmation --}}
                 <div class="form-outline mb-3">
                     <div class="form-group">
-                        <label class="col-form-label w-100">Confirmar Contraseña</label>
+                        <label class="col-form-label w-100">Confirmar contraseña</label>
                         <input type="password" name="password_confirmation" id="password_confirmation"
                             class="form-control w-100" />
                     </div>

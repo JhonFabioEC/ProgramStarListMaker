@@ -72,7 +72,7 @@
                     {{-- birth_date --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Fecha de Nacimiento</label>
+                            <label class="col-form-label w-100">Fecha de nacimiento</label>
                             <p class="form-control w-100 bg-body-secondary">{{ $person->birth_date }}</p>
                         </div>
                     </div>
@@ -193,7 +193,7 @@
                     {{-- phone_number --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Número de Teléfono <strong>(10)</strong></label>
+                            <label class="col-form-label w-100">Número de teléfono <strong>(10)</strong></label>
                             <input type="text" name="phone_number" id="phone_number" class="form-control w-100"
                                 value="{{ old('phone_number', $person) }}" />
                         </div>
@@ -206,7 +206,7 @@
                     {{-- email_address --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Correo Electrónico</label>
+                            <label class="col-form-label w-100">Correo electrónico</label>
                             <input type="text" name="email_address" id="email_address" class="form-control w-100"
                                 value="{{ old('email_address', $user) }}" />
                         </div>
@@ -221,7 +221,7 @@
                     {{-- username --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Nombre de Usuario</label>
+                            <label class="col-form-label w-100">Nombre de usuario</label>
                             <p class="form-control w-100 bg-body-secondary">{{ $user->username }}</p>
                         </div>
                     </div>

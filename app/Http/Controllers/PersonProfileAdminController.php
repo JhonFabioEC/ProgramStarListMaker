@@ -51,13 +51,16 @@ class PersonProfileAdminController extends Controller
 
     public function update(Request $request)
     {
+        $user = User::where('id', '=', Auth::user()->id)->get();
+        $person = Person::where('user_id', '=', Auth::user()->id)->get();
+
         $request->validate([
             'image' => 'image|mimes:jpg,png,jpeg|max:2040',
             'email_address' => 'required|string|email|max:255|min:8|unique:users,email_address,' . Auth::user()->id,
             'password' => ['nullable', Password::default()],
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone_number' => 'required|integer|unique:users,phone_number,' . Auth::user()->id,
+            'phone_number' => 'required|integer|unique:establishments|unique:people,phone_number,' . $person[0]->id,
             'zone_type' => 'required',
             'address' => 'required|string',
             'department_id' => 'required',
@@ -65,9 +68,6 @@ class PersonProfileAdminController extends Controller
         ]);
 
         try {
-            $user = User::where('id', '=', Auth::user()->id)->get();
-            $person = Person::where('user_id', '=', Auth::user()->id)->get();
-
             if ($request->hasFile('image')) {
                 $imageName = time() . '.' . $request->image->extension();
 
@@ -117,7 +117,7 @@ class PersonProfileAdminController extends Controller
             return redirect()->route('login')->with('success', $message);
         } catch (QueryException $e) {
             $message = 'el usuario no puede ser eliminado';
-            return redirect()->route('admin_profile')->with('error', $message);
+            return redirect()->route('admin_edit_profile')->with('error', $message);
         }
     }
 }

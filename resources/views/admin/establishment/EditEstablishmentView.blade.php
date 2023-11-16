@@ -1,9 +1,9 @@
-@extends('admin.NavbarAdmin')
+@extends('admin.NavbarEstablishmnet')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center mt-3">
         <div class="col-10">
-            <form action="{{ route('updatePersonAdmin') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('updateEstablishment') }}" method="POST" enctype="multipart/form-data"
                 class="form shadow-lg rounded p-4">
                 @method('PUT')
                 @csrf
@@ -20,7 +20,7 @@
                     <div class="col-lg-12 mb-3 d-flex justify-content-center">
                         <img name="image" id="preview-image-before-upload"
                             src="@isset($user)
-                            {{ asset('storage/users/persons/' . $user->image) }}
+                            {{ asset('storage/users/establishments/' . $user->image) }}
                         @else
                             {{ asset('img/upload-image.png') }}
                         @endisset"
@@ -41,66 +41,40 @@
                 </div>
 
                 <div class="row">
-                    {{-- first_name --}}
+                    {{-- name --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Nombres</label>
-                            <input type="text" name="first_name" id="first_name" class="form-control w-100"
-                                value="{{ old('first_name', $person) }}" />
+                            <input type="text" name="name" id="name" class="form-control w-100"
+                                value="{{ old('name', $establishment) }}" />
                         </div>
 
-                        @error('first_name')
+                        @error('name')
                             <div class="text-small text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    {{-- last_name --}}
+                    {{-- establishment_type_id --}}
                     <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Apellidos</label>
-                            <input type="text" name="last_name" id="last_name" class="form-control w-100"
-                                value="{{ old('last_name', $person) }}" />
-                        </div>
+                        <label class="col-form-label w-100">Tipo de establecimiento</label>
+                        <select id="establishment_type_id" name="establishment_type_id"
+                            class="form-control form-select w-100">
+                            <option value="">Escoger tipo de establecimiento...</option>
 
-                        @error('last_name')
+                            @isset($establishment_types)
+                                @foreach ($establishment_types as $establishment_type)
+                                    <option value="{{ $establishment_type->id }}"
+                                        @isset($establishment)
+                                    @selected(old('establishment_type_id', $establishment) == $establishment_type->id)
+                                @endisset>
+                                        {{ $establishment_type->name }} </option>
+                                @endforeach
+                            @endisset
+                        </select>
+
+                        @error('establishment_type_id')
                             <div class="text-small text-danger">{{ $message }}</div>
                         @enderror
-                    </div>
-                </div>
-
-                <div class="row">
-                    {{-- birth_date --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Fecha de nacimiento</label>
-                            <p class="form-control w-100 bg-body-secondary">{{ $person->birth_date }}</p>
-                        </div>
-                    </div>
-
-                    {{-- sex --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Sexo</label>
-                            <p class="form-control w-100 bg-body-secondary">{{ $person->sex }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    {{-- document_type --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Tipo de documento</label>
-                            <p class="form-control w-100 bg-body-secondary">{{ $person->documentType->name }}</p>
-                        </div>
-                    </div>
-
-                    {{-- document_number --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Número de documento</label>
-                            <p class="form-control w-100 bg-body-secondary">{{ $person->document_number }}</p>
-                        </div>
                     </div>
                 </div>
 
@@ -114,8 +88,8 @@
                             @isset($departments)
                                 @foreach ($departments as $department)
                                     <option value="{{ $department->id }}"
-                                        @isset($person)
-                                    @selected(old('department_id', $person->municipality) == $department->id)
+                                        @isset($establishment)
+                                    @selected(old('department_id', $establishment->municipality) == $department->id)
                                 @endisset>
                                         {{ $department->name }} </option>
                                 @endforeach
@@ -136,8 +110,8 @@
                             @isset($municipalities)
                                 @foreach ($municipalities as $municipality)
                                     <option value="{{ $municipality->id }}"
-                                        @isset($person)
-                                    @selected(old('municipality_id', $person) == $municipality->id)
+                                        @isset($establishment)
+                                    @selected(old('municipality_id', $establishment) == $municipality->id)
                                 @endisset>
                                         {{ $municipality->name }} </option>
                                 @endforeach
@@ -158,14 +132,14 @@
                             <option value="">Escoger tipo de zona...</option>
 
                             <option value="Urbana"
-                                @isset($person)
-                                {{ old('zone_type', $person) == 'Urbana' ? 'selected' : '' }}
+                                @isset($establishment)
+                                {{ old('zone_type', $establishment) == 'Urbana' ? 'selected' : '' }}
                             @endisset>
                                 Urbana</option>
 
                             <option value="Rural"
-                                @isset($person)
-                                {{ old('zone_type', $person) == 'Rural' ? 'selected' : '' }}
+                                @isset($establishment)
+                                {{ old('zone_type', $establishment) == 'Rural' ? 'selected' : '' }}
                             @endisset>
                                 Rural</option>
                         </select>
@@ -180,7 +154,7 @@
                         <div class="form-group">
                             <label class="col-form-label w-100">Dirección</label>
                             <input type="text" name="address" id="address" class="form-control w-100"
-                                value="{{ old('address', $person) }}" />
+                                value="{{ old('address', $establishment) }}" />
                         </div>
 
                         @error('address')
@@ -195,7 +169,7 @@
                         <div class="form-group">
                             <label class="col-form-label w-100">Número de teléfono <strong>(10)</strong></label>
                             <input type="text" name="phone_number" id="phone_number" class="form-control w-100"
-                                value="{{ old('phone_number', $person) }}" />
+                                value="{{ old('phone_number', $establishment) }}" />
                         </div>
 
                         @error('phone_number')
@@ -245,12 +219,12 @@
                         <div class="form-outline">
                             <div class="form-group text-right">
                                 <div class="btns-group">
-                                    <button type="button" onclick="location.href='{{ route('admin_profile') }}';"
+                                    <button type="button" onclick="location.href='{{ route('establishment_profile') }}';"
                                         class="btn btn-secondary text-white">
                                         <i class='fa fa-arrow-left'></i> Atras</button>
 
                                     <button type="button"
-                                        onclick="window.location.href = '/admin/profile/delete/{{ $user->id }}';"
+                                        onclick="window.location.href = '/establishment/profile/delete/{{ $user->id }}';"
                                         class="btn btn-danger"><i class='fa fa-trash'></i>
                                         Dar de baja</button>
 

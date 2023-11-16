@@ -42,7 +42,7 @@
                     {{-- birth_date --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Fecha de Nacimiento</label>
+                            <label class="col-form-label w-100">Fecha de nacimiento</label>
                             <p class="form-control w-100">{{ $person->birth_date }}</p>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                     {{-- phone_number --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Número de Teléfono</label>
+                            <label class="col-form-label w-100">Número de teléfono</label>
                             <p class="form-control w-100">{{ $person->phone_number }}</p>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                     {{-- email_address --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Correo Electrónico</label>
+                            <label class="col-form-label w-100">Correo electrónico</label>
                             <p class="form-control w-100">{{ $user->email_address }}</p>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                     {{-- username --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Nombre de Usuario</label>
+                            <label class="col-form-label w-100">Nombre de usuario</label>
                             <p class="form-control w-100">{{ $user->username }}</p>
                         </div>
                     </div>

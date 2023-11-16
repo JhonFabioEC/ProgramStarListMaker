@@ -1,4 +1,4 @@
-@extends('admin.NavbarAdmin')
+@extends('admin.NavbarEstablishmnet')
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center mt-3">
@@ -15,61 +15,25 @@
                     {{-- image --}}
                     <div class="col-lg-12 mb-3 d-flex justify-content-center">
                         <img name="image" id="preview-image-before-upload"
-                            src="{{ asset('storage/users/persons/' . $user->image) }}"
+                            src="{{ asset('storage/users/establishments/' . $user->image) }}"
                             alt="Previsualizar imagen" class="image-preview">
                     </div>
                 </div>
 
                 <div class="row">
-                    {{-- first_name --}}
+                    {{-- name --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Nombres</label>
-                            <p class="form-control w-100">{{ $person->first_name }}</p>
+                            <p class="form-control w-100">{{ $establishment->name }}</p>
                         </div>
                     </div>
 
-                    {{-- last_name --}}
+                    {{-- establishment_type --}}
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
-                            <label class="col-form-label w-100">Apellidos</label>
-                            <p class="form-control w-100">{{ $person->last_name }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    {{-- birth_date --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Fecha de nacimiento</label>
-                            <p class="form-control w-100">{{ $person->birth_date }}</p>
-                        </div>
-                    </div>
-
-                    {{-- sex --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Sexo</label>
-                            <p class="form-control w-100">{{ $person->sex }}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    {{-- document_type --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Tipo de documento</label>
-                            <p class="form-control w-100">{{ $person->documentType->name }}</p>
-                        </div>
-                    </div>
-
-                    {{-- document_number --}}
-                    <div class="col-sm-6 form-outline mb-3">
-                        <div class="form-group">
-                            <label class="col-form-label w-100">Número de documento</label>
-                            <p class="form-control w-100">{{ $person->document_number }}</p>
+                            <label class="col-form-label w-100">Tipo de establecimiento</label>
+                            <p class="form-control w-100">{{ $establishment->establishmentType->name }}</p>
                         </div>
                     </div>
                 </div>
@@ -79,7 +43,7 @@
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Departamento</label>
-                            <p class="form-control w-100">{{ $person->municipality->department->name }}</p>
+                            <p class="form-control w-100">{{ $establishment->municipality->department->name }}</p>
                         </div>
                     </div>
 
@@ -87,7 +51,7 @@
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Municipio</label>
-                            <p class="form-control w-100">{{ $person->municipality->name }}</p>
+                            <p class="form-control w-100">{{ $establishment->municipality->name }}</p>
                         </div>
                     </div>
                 </div>
@@ -97,7 +61,7 @@
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Tipo de zona</label>
-                            <p class="form-control w-100">{{ $person->zone_type }}</p>
+                            <p class="form-control w-100">{{ $establishment->zone_type }}</p>
                         </div>
                     </div>
 
@@ -105,7 +69,7 @@
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Dirección</label>
-                            <p class="form-control w-100 overflow-x-auto">{{ $person->address }}</p>
+                            <p class="form-control w-100 overflow-x-auto">{{ $establishment->address }}</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +79,7 @@
                     <div class="col-sm-6 form-outline mb-3">
                         <div class="form-group">
                             <label class="col-form-label w-100">Número de teléfono</label>
-                            <p class="form-control w-100">{{ $person->phone_number }}</p>
+                            <p class="form-control w-100">{{ $establishment->phone_number }}</p>
                         </div>
                     </div>
 
@@ -152,7 +116,7 @@
                             <div class="form-group text-right">
                                 <div class="btns-group">
                                     <button type="button"
-                                        onclick="location.href='{{ route('admin_edit_profile') }}';"
+                                        onclick="location.href='{{ route('establishment_edit_profile') }}';"
                                         class="btn btn-warning text-white">
                                         <i class='fa fa-edit'></i> Editar</button>
                                 </div>

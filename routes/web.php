@@ -12,6 +12,7 @@ use App\Http\Controllers\EstablishmentTypeController;
 use App\Http\Controllers\PersonProfileUserController;
 use App\Http\Controllers\PersonProfileAdminController;
 use App\Http\Controllers\Auth\RegisterPersonController;
+use App\Http\Controllers\EstablishmentProfileController;
 use App\Http\Controllers\Auth\AuthenticationSessionController;
 use App\Http\Controllers\Auth\RegisterEstablishmentController;
 
@@ -64,5 +65,10 @@ Route::get('/user/profile/delete/{id}', [PersonProfileUserController::class, 'de
 Route::get('/establishment', [AdminController::class, 'welcomeEstablishment'])->name('welcome_establishment')->middleware('auth');
 
 Route::resource('/establishment/management/products', ProductController::class)->middleware('auth');
+
+Route::get('/establishment/profile', [EstablishmentProfileController::class, 'index'])->name('establishment_profile')->middleware('auth');
+Route::get('/establishment/profile/edit', [EstablishmentProfileController::class, 'edit'])->name('establishment_edit_profile')->middleware('auth');
+Route::put('/establishment/profile/edit', [EstablishmentProfileController::class, 'update'])->name('updateEstablishment')->middleware('auth');
+Route::get('/establishment/profile/delete/{id}', [EstablishmentProfileController::class, 'destroy'])->name('destroyEstablishment')->middleware('auth');
 
 Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user')->middleware('auth');
