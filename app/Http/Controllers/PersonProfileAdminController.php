@@ -57,7 +57,7 @@ class PersonProfileAdminController extends Controller
             'password' => ['nullable', Password::default()],
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone_number' => 'required|integer',
+            'phone_number' => 'required|integer|unique:users,phone_number,' . Auth::user()->id,
             'zone_type' => 'required',
             'address' => 'required|string',
             'department_id' => 'required',
@@ -71,7 +71,6 @@ class PersonProfileAdminController extends Controller
             if ($request->hasFile('image')) {
                 $imageName = time() . '.' . $request->image->extension();
 
-                // Elimina la imagen existente si existe
                 if ($user[0]->image && $user[0]->image != 'default.svg' && File::exists(public_path('storage/users/persons/' . $user[0]->image))) {
                     File::delete(public_path('storage/users/persons/' . $user[0]->image));
                 }
@@ -101,6 +100,24 @@ class PersonProfileAdminController extends Controller
         } catch (QueryException $e) {
             $message = 'no se pudo actualizar el usuario';
             return redirect()->route('admin_edit_profile')->with('error', $message);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        try {
+            if ($user->image && $user->image != 'default.svg' && File::exists(public_path('storage/users/persons/' . $user->image))) {
+                File::delete(public_path('storage/users/persons/' . $user->image));
+            }
+
+            $user->delete();
+            $message = 'usuario eliminado';
+            return redirect()->route('login')->with('success', $message);
+        } catch (QueryException $e) {
+            $message = 'el usuario no puede ser eliminado';
+            return redirect()->route('admin_profile')->with('error', $message);
         }
     }
 }

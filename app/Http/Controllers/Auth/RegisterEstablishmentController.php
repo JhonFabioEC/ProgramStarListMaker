@@ -32,11 +32,11 @@ class RegisterEstablishmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255|min:5',
+            'username' => 'required|string|max:255|min:5|unique:users',
             'email_address' => 'required|string|email|max:255|min:8|unique:users',
             'password' => ['required', 'confirmed', Password::default()],
             'name' => 'required|string',
-            'phone_number' => 'required|integer',
+            'phone_number' => 'required|integer|unique:people|unique:establishments',
             'zone_type' => 'required',
             'address' => 'required|string',
             'establishment_type_id' => 'required',

@@ -3,7 +3,8 @@
 @section('content')
     <div class="container d-flex justify-content-center align-items-center mt-3">
         <div class="col-10">
-            <form action="{{ route('updatePersonAdmin') }}" method="POST" enctype="multipart/form-data" class="form shadow-lg rounded p-4">
+            <form action="{{ route('updatePersonAdmin') }}" method="POST" enctype="multipart/form-data"
+                class="form shadow-lg rounded p-4">
                 @method('PUT')
                 @csrf
 
@@ -230,7 +231,7 @@
                         <div class="form-group">
                             <label class="col-form-label w-100">Contraseña</label>
                             <input type="password" name="password" id="password" class="form-control w-100"
-                            placeholder="●●●●●●●●" />
+                                placeholder="●●●●●●●●" />
                         </div>
 
                         @error('password')
@@ -244,18 +245,16 @@
                         <div class="form-outline">
                             <div class="form-group text-right">
                                 <div class="btns-group">
-                                    <button type="button"
-                                        onclick="location.href='{{ route('admin_profile') }}';"
+                                    <button type="button" onclick="location.href='{{ route('admin_profile') }}';"
                                         class="btn btn-secondary text-white">
                                         <i class='fa fa-arrow-left'></i> Atras</button>
 
                                     <button type="button"
-                                        onclick="location.href=';"
+                                        onclick="window.location.href = '/admin/profile/delete/{{ $user->id }}';"
                                         class="btn btn-danger"><i class='fa fa-trash'></i>
                                         Dar de baja</button>
 
-                                    <button type="submit"
-                                        class="btn btn-warning text-white">
+                                    <button type="submit" class="btn btn-warning text-white">
                                         <i class='fa fa-edit'></i> Editar</button>
                                 </div>
                             </div>

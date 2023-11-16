@@ -32,14 +32,14 @@ class RegisterPersonController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255|min:5',
+            'username' => 'required|string|max:255|min:5|unique:users',
             'email_address' => 'required|string|email|max:255|min:8|unique:users',
             'password' => ['required', 'confirmed', Password::default()],
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'birth_date' => 'required|date',
-            'document_number' => 'required|integer',
-            'phone_number' => 'required|integer',
+            'document_number' => 'required|integer|unique:people',
+            'phone_number' => 'required|integer|unique:people|unique:establishments',
             'zone_type' => 'required',
             'address' => 'required|string',
             'document_type_id' => 'required',
