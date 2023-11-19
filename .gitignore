@@ -5,6 +5,7 @@
 /public/storage/products/*
 /public/storage/users/persons/*
 /public/storage/users/establishments/*
+/public/storage/itemOrders/*
 !/public/storage/products/default.svg
 !/public/storage/users/persons/default.svg
 !/public/storage/users/establishments/default.svg

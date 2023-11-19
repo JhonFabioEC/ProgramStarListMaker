@@ -78,8 +78,9 @@
                                     <button class="btn btn-secondary" id="btn-increase"
                                         onclick="increase({{ $product->id }}, {{ $product->stock }} );">+</button>
 
-                                    <button type="submit" class="btn btn-primary w-75" title="Agregar"><i
-                                            class="fa-solid fa-cart-plus"></i>
+                                    <button class="btn btn-primary w-75" title="Agregar"
+                                    onclick="window.location.href = '/user/product/{{ $product->id }}/'+$('#stock{{ $product->id }}').val();">
+                                    <i class="fa-solid fa-cart-plus"></i>
                                     </button>
                                 </div>
                             </div>
@@ -119,4 +120,24 @@
             }
         }
     </script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire(
+                'Exito!',
+                '{{ session('success') }}',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire(
+                'Error!',
+                '{{ session('error') }}',
+                'error'
+            )
+        </script>
+    @endif
 @endsection

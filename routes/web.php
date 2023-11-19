@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemOrderController;
 use App\Http\Controllers\Auth\SelectUserController;
 use App\Http\Controllers\EstablishmentTypeController;
 use App\Http\Controllers\PersonProfileUserController;
@@ -70,9 +71,12 @@ Route::put('/establishment/profile/edit', [EstablishmentProfileController::class
 Route::get('/establishment/profile/delete/{id}', [EstablishmentProfileController::class, 'destroy'])->name('destroyEstablishment')->middleware('auth');
 
 Route::get('/user', [AdminController::class, 'welcomeUser'])->name('welcome_user')->middleware('auth');
-Route::get('/user/category/{id}', [AdminController::class, 'getProductsByCategory'])->name('productsByCategoryAdmin');
-Route::get('/user/brand/{id}', [AdminController::class, 'getProductsByBrand'])->name('productsByBrandAdmin');
-Route::post('/user', [AdminController::class, 'getProductsByName'])->name('searchArticlesAdmin');
+Route::get('/user/category/{id}', [AdminController::class, 'getProductsByCategory'])->name('productsByCategoryAdmin')->middleware('auth');
+Route::get('/user/brand/{id}', [AdminController::class, 'getProductsByBrand'])->name('productsByBrandAdmin')->middleware('auth');
+Route::post('/user', [AdminController::class, 'getProductsByName'])->name('searchArticlesAdmin')->middleware('auth');
+Route::get('/user/product/{id}/{quantity}', [ItemOrderController::class, 'addProduct'])->name('addProduct')->middleware('auth');
+Route::get('/user/orders', [ItemOrderController::class, 'getOrders'])->name('getOrders')->middleware('auth');
+Route::get('/user/orders/delete/{id}', [ItemOrderController::class, 'deleteOrder'])->name('deleteOrder')->middleware('auth');
 
 Route::get('/user/profile', [PersonProfileUserController::class, 'index'])->name('user_profile')->middleware('auth');
 Route::get('/user/profile/edit', [PersonProfileUserController::class, 'edit'])->name('user_edit_profile')->middleware('auth');
